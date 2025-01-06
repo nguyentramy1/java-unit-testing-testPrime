@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/1ecee84e-1066-4005-8441-8f83547f3a2b)# Kiểm thử đơn vị với java - kiểm tra số nguyên tố
+# Kiểm thử đơn vị với java - kiểm tra số nguyên tố
 
 Dự án này chứa bộ unit test cho lớp `NumberUtils`, bao gồm một phương thức kiểm tra số nguyên có phải là số nguyên tố hay không. Các bài kiểm tra kiểm tra các trường hợp khác nhau như số nguyên tố, số không phải nguyên tố, và số âm.
 
