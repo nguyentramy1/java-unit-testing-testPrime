@@ -44,4 +44,16 @@ public class PrimeNumbersTest {
         List<Integer> actualPrimes = primeNumbers.computePrimes(n);
         assertEquals(expectedPrimes, actualPrimes);
     }
+    @Test
+    public void testSpecialCases() {
+        PrimeNumbers primeNumbers = new PrimeNumbers();
+
+        assertFalse(primeNumbers.isPrime(-5));  // Số âm không phải số nguyên tố
+        assertFalse(primeNumbers.isPrime(0));   // 0 không phải số nguyên tố
+        assertFalse(primeNumbers.isPrime(1));   // 1 không phải số nguyên tố
+        assertTrue(primeNumbers.isPrime(2));    // 2 là số nguyên tố
+        assertTrue(primeNumbers.isPrime(97));   // 97 là số nguyên tố
+        assertFalse(primeNumbers.isPrime(100)); // 100 không phải số nguyên tố
+        assertTrue(primeNumbers.isPrime(104729)); // Một số nguyên tố lớn
+    }
 }
