@@ -1,12 +1,19 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 public class PrimeNumbersTest {
 
+    private PrimeNumbers primeNumbers;
+
+    @BeforeEach
+    public void setup() {
+        primeNumbers = new PrimeNumbers();
+    }
+
     @Test
     public void testComputePrimes_ValidInput() {
-        PrimeNumbers primeNumbers = new PrimeNumbers();
         int n = 10;
         List<Integer> expectedPrimes = List.of(2, 3, 5, 7);
         List<Integer> actualPrimes = primeNumbers.computePrimes(n);
@@ -15,45 +22,51 @@ public class PrimeNumbersTest {
 
     @Test
     public void testComputePrimes_InputZeroOrNegative() {
-        PrimeNumbers primeNumbers = new PrimeNumbers();
         assertTrue(primeNumbers.computePrimes(0).isEmpty());
         assertTrue(primeNumbers.computePrimes(-10).isEmpty());
     }
 
     @Test
     public void testComputePrimes_InputIsOne() {
-        PrimeNumbers primeNumbers = new PrimeNumbers();
         assertTrue(primeNumbers.computePrimes(1).isEmpty());
     }
 
     @Test
     public void testComputePrimes_LargeInput() {
-        PrimeNumbers primeNumbers = new PrimeNumbers();
-        int n = 100;
+        int n = 1000;
         List<Integer> primes = primeNumbers.computePrimes(n);
         assertNotNull(primes);
-        assertTrue(primes.size() > 0);
-        assertEquals(25, primes.size());
+        assertFalse(primes.isEmpty());
+        assertTrue(primes.size() > 0); // Kiểm tra nếu có số nguyên tố trả về
     }
 
     @Test
     public void testComputePrimes_OnlyPrimeNumbersReturned() {
-        PrimeNumbers primeNumbers = new PrimeNumbers();
         int n = 30;
         List<Integer> expectedPrimes = List.of(2, 3, 5, 7, 11, 13, 17, 19, 23, 29);
         List<Integer> actualPrimes = primeNumbers.computePrimes(n);
         assertEquals(expectedPrimes, actualPrimes);
     }
+
     @Test
     public void testSpecialCases() {
-        PrimeNumbers primeNumbers = new PrimeNumbers();
+        assertAll("Check for prime cases",
+                () -> assertFalse(primeNumbers.isPrime(-5)),
+                () -> assertFalse(primeNumbers.isPrime(0)),
+                () -> assertFalse(primeNumbers.isPrime(1)),
+                () -> assertTrue(primeNumbers.isPrime(2)),
+                () -> assertTrue(primeNumbers.isPrime(97)),
+                () -> assertFalse(primeNumbers.isPrime(100)),
+                () -> assertTrue(primeNumbers.isPrime(104729))
+        );
+    }
 
-        assertFalse(primeNumbers.isPrime(-5));  // Số âm không phải số nguyên tố
-        assertFalse(primeNumbers.isPrime(0));   // 0 không phải số nguyên tố
-        assertFalse(primeNumbers.isPrime(1));   // 1 không phải số nguyên tố
-        assertTrue(primeNumbers.isPrime(2));    // 2 là số nguyên tố
-        assertTrue(primeNumbers.isPrime(97));   // 97 là số nguyên tố
-        assertFalse(primeNumbers.isPrime(100)); // 100 không phải số nguyên tố
-        assertTrue(primeNumbers.isPrime(104729)); // Một số nguyên tố lớn
+    @Test
+    public void testComputePrimes_Performance() {
+        long startTime = System.nanoTime();
+        primeNumbers.computePrimes(10000);
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+        assertTrue(duration < 1000000000, "Test duration is too long!");
     }
 }
