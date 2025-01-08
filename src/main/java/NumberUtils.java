@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class NumberUtils {
     public static boolean isPrime(int n) {
         if (n <= 1) return false;
